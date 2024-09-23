@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "518279335908",
+    "project_id": "ratefit-8df99",
+    "storage_bucket": "ratefit-8df99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518279335908:android:bd33be11d51ebc538bc1f1",
+        "android_client_info": {
+          "package_name": "com.ratefit.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAk0clZvgRODmVfVu9LBp3DIZdJyiNHx0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
