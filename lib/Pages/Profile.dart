@@ -425,8 +425,11 @@ class _ProfileState extends State<Profile> {
                 // ignore: missing_return
                 builder: (context, snap) {
                   if (snap.hasData == false) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return Container(
+                      color: Colors.black,
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
                     );
                   }
                   if (snap.data != null) {

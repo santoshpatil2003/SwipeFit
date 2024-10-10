@@ -71,6 +71,39 @@ class _SendProfileState extends State<SendProfile> {
         });
   }
 
+  final List<Color> colors = [
+    Colors.red,
+    Colors.green,
+    Colors.brown,
+    Colors.cyan,
+    Colors.grey,
+    Colors.lightBlue,
+    Colors.yellow,
+    Colors.deepOrangeAccent,
+    Colors.lightGreenAccent,
+    Colors.blueGrey,
+    Colors.red,
+    Colors.green,
+    Colors.brown,
+    Colors.cyan,
+    Colors.grey,
+    Colors.lightBlue,
+    Colors.yellow,
+    Colors.deepOrangeAccent,
+    Colors.lightGreenAccent,
+    Colors.blueGrey,
+    Colors.red,
+    Colors.green,
+    Colors.brown,
+    Colors.cyan,
+    Colors.grey,
+    Colors.lightBlue,
+    Colors.yellow,
+    Colors.deepOrangeAccent,
+    Colors.lightGreenAccent,
+    Colors.blueGrey,
+  ];
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -99,9 +132,14 @@ class _SendProfileState extends State<SendProfile> {
                       height: size.height / 18,
                       width: size.width / 9,
                       decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: colors[widget.userName!.split('').length],
                           borderRadius:
                               BorderRadius.circular(size.height / 10)),
+                      child: Center(
+                          child: Text(
+                              widget.userName!.toUpperCase().split('')[0],
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 18))),
                     ),
                   ),
                 ],

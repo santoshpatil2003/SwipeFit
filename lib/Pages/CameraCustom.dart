@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 // import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/demoupload.dart';
+import 'package:image_picker/image_picker.dart';
 // import 'package:flutter_application_1/pages/Multiupload.dart';
 // import 'package:flutter_application_1/pages/demoupload.dart';
 // import 'package:flutter_application_1/pages/final_upload_multiple.dart';
@@ -226,9 +227,27 @@ class _CameraAppState extends State<CameraApp> {
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: IconButton(
-                    onPressed: () {
-                      // Navigator.of(context)
-                      //     .pushNamed(FinalUploadMulti.routepage);
+                    onPressed: () async {
+                      Future<XFile?> _imagepick() async {
+                        final XFile? image = await ImagePicker().pickImage(
+                          maxWidth: 600,
+                          source: ImageSource.gallery,
+                        );
+                        return image;
+                      }
+
+                      _imagepick().then((img) async => {
+                            if (img != null)
+                              {
+                                await Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => UploadPage2(
+                                      imagepath: img.path,
+                                    ),
+                                  ),
+                                )
+                              }
+                          });
                     },
                     icon: const Icon(
                       Icons.add_a_photo_rounded,

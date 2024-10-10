@@ -314,6 +314,7 @@ class CardProvider extends ChangeNotifier {
             //     .doc(user.uid)
             //     .collection('recivedpics')
             //     .get();
+            // wLqzXTudraZoM1HvD8ZRo1pWqXO2
             await FirebaseFirestore.instance
                 .collection("users")
                 .doc(user.uid.toString())

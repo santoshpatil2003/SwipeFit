@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/Pages/Send.dart';
+import 'package:flutter_application_1/Pages/final_upload.dart';
 import 'package:flutter_application_1/Provider/Provider.dart';
 import 'package:flutter_application_1/Storage/Storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -101,20 +102,27 @@ class _CameraState extends State<Camera> {
                                 padding: const EdgeInsets.only(left: 10),
                                 child: GestureDetector(
                                   onTap: () async {
-                                    try {
-                                      await storage
-                                          .upload(_selectname!, _selectpath!,
-                                              userId)
-                                          .then((value) async {
-                                        await Future.delayed(
-                                            const Duration(seconds: 5));
-                                        await uploadserver(
-                                            _selectname!, "1", userId);
-                                      });
-                                    } catch (e) {
-                                      print(e);
-                                    }
-                                    Navigator.of(context).pop();
+                                    // try {
+                                    //   await storage
+                                    //       .upload(_selectname!, _selectpath!,
+                                    //           userId)
+                                    //       .then((value) async {
+                                    //     await Future.delayed(
+                                    //         const Duration(seconds: 5));
+                                    //     await uploadserver(
+                                    //         _selectname!, "1", userId);
+                                    //   });
+                                    // } catch (e) {
+                                    //   print(e);
+                                    // }
+                                    // Navigator.of(context).pop();
+                                    await Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => FinalUpload(
+                                          imagepath: _selectpath,
+                                        ),
+                                      ),
+                                    );
                                   },
                                   child: Container(
                                     height: 35,
@@ -125,10 +133,10 @@ class _CameraState extends State<Camera> {
                                     ),
                                     child: const Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "Upload",
+                                          "Tryon AI",
                                           style: TextStyle(color: Colors.white),
                                         ),
                                         Icon(
