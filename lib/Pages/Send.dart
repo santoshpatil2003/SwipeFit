@@ -87,7 +87,8 @@ class _SendState extends State<Send> {
   //   // return
   // }
 
-  Future<void> sent_url_firestore(String picName, String uid) async {
+  Future<void> sent_url_firestore(
+      String picName, String uid, String link) async {
     try {
       for (var element in sendlist) {
         var picUrl =
@@ -108,17 +109,18 @@ class _SendState extends State<Send> {
           "ratings": {},
           "like": 0,
           "dislike": 0,
+          "link": link
         });
 
         // Now that we have the globalPicRef, we can use its ID for sentpics and recivedpics
-        await send2(picName, globalPicRef.id);
+        await send2(picName, globalPicRef.id, link);
       }
     } catch (e) {
       print("Error in sent_url_firestore: $e");
     }
   }
 
-  Future<void> send2(String picName, String globalPicId) async {
+  Future<void> send2(String picName, String globalPicId, String link) async {
     User? currentUser = FirebaseAuth.instance.currentUser;
     if (currentUser == null) {
       print("No user currently logged in");
@@ -148,6 +150,7 @@ class _SendState extends State<Send> {
             "sentTo": recipientId,
             "Date": DateTime.now().toIso8601String().split("T")[0],
             "Time": DateTime.now().toIso8601String().split("T")[1],
+            "link": link,
           });
 
           // Add to sender's sentpics
@@ -161,6 +164,7 @@ class _SendState extends State<Send> {
             "sentTo": recipientId,
             "Date": DateTime.now().toIso8601String().split("T")[0],
             "Time": DateTime.now().toIso8601String().split("T")[1],
+            "link": link,
           });
 
           print("Picture sent to $recipientId");
@@ -181,6 +185,7 @@ class _SendState extends State<Send> {
     final argsid = args["id"];
     final argsname = args["picname"];
     final argspath = args["pathname"];
+    final cloth_link = args["link"];
     print(argsname);
     var i = FirebaseFirestore.instance.collection("users").doc(uid);
     return Scaffold(
@@ -258,7 +263,7 @@ class _SendState extends State<Send> {
                               .then((value) async {
                             Future.delayed(const Duration(seconds: 5),
                                 () async {
-                              sent_url_firestore(argsname, uid!);
+                              sent_url_firestore(argsname, uid!, cloth_link);
                               // .whenComplete(() => send2(argsname));
                               // send2(argsname);
                             });

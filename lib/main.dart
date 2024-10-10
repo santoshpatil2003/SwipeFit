@@ -7,6 +7,7 @@ import 'package:flutter_application_1/Pages/LogIn.dart';
 import 'package:flutter_application_1/Pages/Profile.dart';
 import 'package:flutter_application_1/Pages/Send.dart';
 import 'package:flutter_application_1/Pages/SignIn.dart';
+import 'package:flutter_application_1/Pages/Store.dart';
 import 'package:flutter_application_1/Pages/WelcomePage.dart';
 import 'package:flutter_application_1/Pages/profilepicslist.dart';
 import 'package:flutter_application_1/Provider/Provider.dart';
@@ -94,11 +95,11 @@ class _HomePageState extends State<HomePage> {
     // Initialize _pages here
     _pages = [
       const Home(),
+      const StorePage(),
       CameraApp(
         camera: cameras,
       ),
       // Camera(uid: widget.uid),
-      // const Center(child: Text('Profile Page')),
       const Profile(),
     ];
   }
@@ -144,18 +145,19 @@ class _HomePageState extends State<HomePage> {
       // bottomNavigationBar: ,
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed, // Add this line
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.add),
-          //   label: 'camera',
-          // ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.storefront),
+            label: 'Store',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
-            label: 'camera',
+            label: 'Camera',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -254,202 +256,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// class Home extends StatefulWidget {
-//   const Home({super.key});
-
-//   @override
-//   State<Home> createState() => _HomeState();
-// }
-
-// class _HomeState extends State<Home> {
-//   final cardSize = const Size(300, 400);
-//   List pic_urls_list = [];
-//   String uid1 = '';
-//   Future<void> _refresh() async {
-//     // final provider = Provider.of<CardProvider>(context, listen: false);
-//     // provider.resetUsers();
-//     setState(() {});
-//   }
-
-//   @override
-//   void initState() {
-//     super.initState();
-
-//     // Listen to authentication changes
-//     FirebaseAuth.instance.authStateChanges().listen((User? user) async {
-//       if (user != null) {
-//         final uid = user.uid;
-//         try {
-//           // Fetch received pictures from Firestore
-//           QuerySnapshot<Map<String, dynamic>> receivedPicsSnapshot =
-//               await FirebaseFirestore.instance
-//                   .collection("users")
-//                   .doc("P0cEzZReQrX9jEBPzwHeJ6eeNIT2")
-//                   .collection('recivedpics')
-//                   .get();
-
-//           // Prepare a list to store picture URLs
-//           List<String> picUrls = [];
-
-//           // Fetch picture data for each received picture
-//           for (var doc in receivedPicsSnapshot.docs) {
-//             final picId = doc.data()['picdata'] as String;
-//             DocumentSnapshot<Map<String, dynamic>> picDataSnapshot =
-//                 await FirebaseFirestore.instance
-//                     .collection("globalpics")
-//                     .doc(picId)
-//                     .get();
-
-//             // Add picture URL to the list
-//             final picUrl = picDataSnapshot.data()?['pic_url'] as String?;
-//             if (picUrl != null) {
-//               picUrls.add(picUrl);
-//             }
-//           }
-
-//           // Update state after fetching all data
-//           if (mounted) {
-//             // Ensure the widget is still mounted before calling setState
-//             setState(() {
-//               uid1 = uid;
-//               pic_urls_list = picUrls;
-//             });
-//           }
-//         } catch (e) {
-//           print("Error fetching data: $e");
-//         }
-//       }
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     // print("Pic Urls: $pic_urls_list");
-//     // print("Uid: $uid1");
-//     return RefreshIndicator(
-//       onRefresh: _refresh,
-//       backgroundColor: Colors.black,
-//       child: Consumer<CardProvider>(
-//         builder: (context, provider, child) {
-//           if (pic_urls_list.isEmpty) {
-//             return Container(
-//               color: Colors.black,
-//               child: const Center(
-//                 child: Text('Reset Cards'),
-//                 // ElevatedButton(
-//                 //   onPressed: () => provider.resetUsers(),
-//                 //   style: ElevatedButton.styleFrom(
-//                 //     backgroundColor: const Color.fromARGB(255, 18, 18, 18),
-//                 //   ),
-//                 //   child: const Text('Reset Cards'),
-//                 // ),
-//               ),
-//             );
-//           } else {
-//             return Container(
-//               color: Colors.black,
-//               child: Stack(
-//                 children: pic_urls_list
-//                     .map((urlImage) => TinderCard(
-//                           urlImage: urlImage,
-//                           isFront: pic_urls_list.last == urlImage,
-//                           cardSize: cardSize,
-//                         ))
-//                     .toList(),
-//                 // children: provider.urlImages
-//                 //     .map((urlImage) => TinderCard(
-//                 //           urlImage: urlImage,
-//                 //           isFront: provider.urlImages.last == urlImage,
-//                 //           cardSize: cardSize,
-//                 //         ))
-//                 //     .toList(),
-//               ),
-//             );
-//           }
-//         },
-//       ),
-//     );
-//   }
-// }
-
-// class Home extends StatefulWidget {
-//   const Home({Key? key}) : super(key: key);
-
-//   @override
-//   State<Home> createState() => _HomeState();
-// }
-
-// class _HomeState extends State<Home> {
-//   var r = false;
-//   @override
-//   void initState() {
-//     // TODO: implement initState
-//     super.initState();
-//     final provider = Provider.of<CardProvider>(context, listen: false);
-//     provider.resetUsers();
-//   }
-
-//   // @override
-//   // void didChangeDependencies() {
-//   //   // TODO: implement didChangeDependencies
-//   //   super.didChangeDependencies();
-//   //   final provider = Provider.of<CardProvider>(context, listen: false);
-//   //   provider.resetUsers();
-//   // }
-
-//   Future<void> _refresh() async {
-//     setState(() {
-//       r = !r;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return RefreshIndicator(
-//       onRefresh: _refresh,
-//       child: Consumer<CardProvider>(
-//         builder: (context, provider, child) {
-//           if (provider.urlImages.isEmpty) {
-//             return Container(
-//               color: Colors.black,
-//               child: Center(
-//                 child: ElevatedButton(
-//                   onPressed: () => _refresh,
-//                   style: ElevatedButton.styleFrom(
-//                     backgroundColor: const Color.fromARGB(255, 18, 18, 18),
-//                   ),
-//                   child: const Text('Reset Cards'),
-//                 ),
-//               ),
-//             );
-//           } else {
-//             print(provider.urlImages.length);
-//             return Container(
-//               color: Colors.black,
-//               child: Stack(
-//                 children: provider.urlImages
-//                     .map((urlImage) => TinderCard(
-//                           urlImage: urlImage,
-//                           isFront: provider.urlImages.last == urlImage,
-//                         ))
-//                     .toList(),
-//               ),
-//             );
-//           }
-//         },
-//       ),
-//     );
-//   }
-// }

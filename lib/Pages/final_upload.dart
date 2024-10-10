@@ -224,10 +224,19 @@ class _FinalUploadState extends State<FinalUpload> {
       'https://firebasestorage.googleapis.com/v0/b/ratefit-bed29.appspot.com/o/Cloths%2F05679250401-e5.jpg?alt=media&token=b90c0efd-4c03-4003-8c9a-cc1fa3b67e08',
     ];
 
+    final List<String> image_link = [
+      'https://www.zara.com/in/en/faded-hoodie-p00962381.html?v1=375210427',
+      'https://www.zara.com/in/en/basic-heavy-weight-t-shirt-p01887450.html?v1=364113271',
+      'https://www.zara.com/in/en/printed-knit-t-shirt-p04090335.html?v1=390672229',
+      'https://www.zara.com/in/en/hoodie-p00761330.html?v1=381137893',
+      'https://www.zara.com/in/en/spray-print-knit-t-shirt-p04805305.html?v1=365910331',
+      'https://www.zara.com/in/en/abstract-print-shirt-p05679250.html?v1=372994197'
+    ];
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text("RateFit"),
+        title: const Text("SwipeFit"),
         backgroundColor: Colors.black,
       ),
       body: StreamBuilder<User?>(
@@ -413,6 +422,7 @@ class _FinalUploadState extends State<FinalUpload> {
                                             "id": "true",
                                             "picname": _selectname,
                                             "pathname": outputImage!.path,
+                                            'link': image_link[_selectedcloth],
                                           });
                                     },
                                     child: Container(
